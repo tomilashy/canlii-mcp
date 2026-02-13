@@ -23,7 +23,24 @@ An [MCP (Model Context Protocol)](https://modelcontextprotocol.io) server for th
 
 ## Usage
 
-### stdio (Claude Desktop / Claude Code)
+### stdio via npx (quickest)
+
+```json
+{
+  "mcpServers": {
+    "canlii": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@tomilashy/canlii-mcp"],
+      "env": {
+        "CANLII_API": "your_api_key"
+      }
+    }
+  }
+}
+```
+
+### stdio (from source)
 
 ```bash
 npm install
