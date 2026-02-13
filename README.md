@@ -53,12 +53,19 @@ Add to your MCP config:
 PORT=3000 CANLII_API=your_api_key node dist/index.js --transport http
 ```
 
-The MCP endpoint is available at `http://localhost:3000/mcp`.
+The MCP endpoint is available at `http://localhost:3000/mcp`. The server runs in stateless mode — each request is self-contained, no session ID or initialize handshake required. Clients can call tools directly:
+
+```bash
+curl -X POST http://localhost:3000/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_case_databases","arguments":{"language":"en"}}}'
+```
 
 ### Docker
 
 ```bash
-docker run -e CANLII_API=your_api_key -p 3000:3000 ghcr.io/tomilashy/canlii-mcp
+docker run -e CANLII_API=your_api_key -e MCP_AUTH_TOKEN=your_secret -p 3000:3000 ghcr.io/tomilashy/canlii-mcp
 ```
 
 Or with Docker Compose:
@@ -69,9 +76,38 @@ services:
     image: ghcr.io/tomilashy/canlii-mcp
     environment:
       CANLII_API: your_api_key
+      MCP_AUTH_TOKEN: your_secret  # optional
     ports:
       - "3000:3000"
 ```
+
+### Cloudflare Workers
+
+The server includes a Workers-compatible entry point (`src/worker.ts`).
+
+#### CLI deploy
+
+```bash
+npx wrangler secret put CANLII_API
+npx wrangler secret put MCP_AUTH_TOKEN  # optional
+npx wrangler deploy
+```
+
+#### Dashboard deploy (Connect to Git)
+
+1. Go to [Cloudflare Dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Connect to Git**
+2. Select your `tomilashy/canlii-mcp` repository
+3. On the **Set up your application** page:
+   - **Project name**: `canlii-mcp`
+   - **Build command**: `npm install && npm run build`
+   - **Deploy command**: `npx wrangler deploy` (pre-filled)
+4. Expand **Advanced settings**:
+   - **Variable name**: `CANLII_API`
+   - **Variable value**: your CanLII API key
+   - Check **Encrypt** to store it as a secret
+5. Click **Deploy**
+
+The MCP endpoint will be at `https://canlii-mcp.<your-subdomain>.workers.dev/mcp`.
 
 ## Configuration
 
@@ -79,6 +115,7 @@ services:
 |---------------------|----------|---------|-------------|
 | `CANLII_API` | Yes | — | Your CanLII API key |
 | `PORT` | No | `3000` | HTTP server port (HTTP mode only) |
+| `MCP_AUTH_TOKEN` | No | — | Bearer token for HTTP authentication. If set, all HTTP requests must include `Authorization: Bearer <token>`. If not set, the server runs without authentication. |
 
 ## Rate Limits
 

@@ -1,22 +1,26 @@
 {
-  "name": "canlii-mcp",
-  "version": "1.0.0",
-  "description": "MCP server for the CanLII Canadian legal information API",
-  "type": "module",
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "@hono/node-server": "^1.19.9",
-    "@modelcontextprotocol/sdk": "^1.26.0",
-    "dotenv": "^17.3.1",
-    "hono": "^4.11.9",
-    "zod": "^4.3.6"
-  },
-  "devDependencies": {
-    "@types/node": "^25.2.3",
-    "typescript": "^5.9.3"
-  }
+	"dependencies": {
+		"@hono/node-server": "^1.19.9",
+		"@modelcontextprotocol/sdk": "^1.26.0",
+		"dotenv": "^17.3.1",
+		"hono": "^4.11.9",
+		"zod": "^4.3.6"
+	},
+	"description": "MCP server for the CanLII Canadian legal information API",
+	"devDependencies": {
+		"@biomejs/biome": "^2.3.15",
+		"@types/node": "^25.2.3",
+		"typescript": "^5.9.3"
+	},
+	"license": "MIT",
+	"name": "canlii-mcp",
+	"scripts": {
+		"build": "tsc",
+		"check": "biome check --write .",
+		"format": "biome format --write .",
+		"lint": "biome lint --write .",
+		"watch": "tsc --watch"
+	},
+	"type": "module",
+	"version": "1.0.0"
 }
