@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/tomilashy/canlii-mcp/compare/v1.0.0...v1.0.1) (2026-02-13)
+
+
+### Bug Fixes
+
+* use workflow_run trigger and add manual dispatch ([be484ce](https://github.com/tomilashy/canlii-mcp/commit/be484ce0fc0a23abffd4b76cfbf1432a0e976d16))
+
 # 1.0.0 (2026-02-13)
 
 
