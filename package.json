@@ -20,6 +20,10 @@
 	],
 	"license": "MIT",
 	"name": "@tomilashy/canlii-mcp",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tomilashy/canlii-mcp"
+	},
 	"publishConfig": {
 		"access": "public"
 	},
