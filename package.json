@@ -1,4 +1,7 @@
 {
+	"bin": {
+		"canlii-mcp": "dist/index.js"
+	},
 	"dependencies": {
 		"@hono/node-server": "^1.19.9",
 		"@modelcontextprotocol/sdk": "^1.26.0",
@@ -12,13 +15,20 @@
 		"@types/node": "^25.2.3",
 		"typescript": "^5.9.3"
 	},
+	"files": [
+		"dist"
+	],
 	"license": "MIT",
-	"name": "canlii-mcp",
+	"name": "@tomilashy/canlii-mcp",
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"build": "tsc",
 		"check": "biome check --write .",
 		"format": "biome format --write .",
 		"lint": "biome lint --write .",
+		"prepublishOnly": "npm run build",
 		"watch": "tsc --watch"
 	},
 	"type": "module",

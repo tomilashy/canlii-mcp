@@ -13,8 +13,6 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    outputs:
-      new_release_published: ${{ steps.semantic_release.outputs.new_release_published }}
 
     steps:
       - uses: actions/checkout@v4
@@ -54,20 +52,6 @@ jobs:
           EOF
 
       - name: Run semantic-release
-        id: semantic_release
-        run: |
-          npx semantic-release > release.log 2>&1 || true
-          cat release.log
-          if grep -q "Published release" release.log; then
-            echo "new_release_published=true" >> $GITHUB_OUTPUT
-          else
-            echo "new_release_published=false" >> $GITHUB_OUTPUT
-          fi
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
-
-  docker:
-    needs: release
-    if: needs.release.outputs.new_release_published == 'true'
-    uses: ./.github/workflows/docker.yml
-    secrets: inherit
