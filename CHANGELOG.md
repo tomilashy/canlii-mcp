@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/tomilashy/canlii-mcp/compare/v1.0.2...v1.0.3) (2026-02-13)
+
+
+### Bug Fixes
+
+* add repository url to package.json for npm provenance ([53f3e57](https://github.com/tomilashy/canlii-mcp/commit/53f3e57256b05c7681034c62c6a1f67d7776e0b8))
+
 ## [1.0.2](https://github.com/tomilashy/canlii-mcp/compare/v1.0.1...v1.0.2) (2026-02-13)
 
 
